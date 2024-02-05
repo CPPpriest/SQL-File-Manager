@@ -9,3 +9,10 @@ g++ -o test test.cpp -lmysqlcppconn
 
 #run
 ./test
+
+
+#push to origin
+git push origin master
+
+
+
