@@ -32,7 +32,9 @@ while true; do
       
     run)
       echo "run"
-      g++ -o test test.cpp -lmysqlcppconn
+      g++ -c Master.cpp
+      g++ -c test.cpp
+      g++ -o test test.o Master.o -lmysqlcppconn
       ./test
       ;;
       

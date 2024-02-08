@@ -1,8 +1,11 @@
-#include <iostream>
 #include <mysql_driver.h>
 #include <mysql_connection.h>
 
+#include "SFM.h"
+#include "Master.h"
+
 int main() {
+
     sql::mysql::MySQL_Driver *driver;
     sql::Connection *con;
 
@@ -16,7 +19,25 @@ int main() {
         // Select a database
         con->setSchema("foldersDB");
 
-        // Execute SQL queries and process results here
+//---------Execute SQL queries and process results here-----------------------//
+
+        std::cout  <<  MACINTOSH << std::endl;
+
+        std::string pathString = "/home/priest/Desktop/sampleFolder";
+        Master m1(pathString);
+
+        std::string tabs = "";
+        m1.traverse(pathString,tabs);
+        // Create Query object for the instance
+
+        // Call evaluator process
+
+        // Delete Query object
+
+
+
+//----------------------------------------------------------------------------//
+
 
         // Close the connection
         delete con;
@@ -28,4 +49,3 @@ int main() {
 
     return 0;
 }
-
