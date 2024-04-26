@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/SQL-File-Manager.dir/src/SFM.cpp.o CMakeFiles/SQL-File-Manager.dir/src/main.cpp.o -o SQL-File-Manager  -lmysqlcppconn 

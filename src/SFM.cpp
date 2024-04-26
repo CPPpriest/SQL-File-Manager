@@ -1,15 +1,15 @@
-#include "Master.h"
+#include "SFM.h"
 
 // Constructor
-Master::Master(std::string pathString):mp(pathString){}
+SFM::SFM(std::string pathString):pathStr(pathString){}
 
 // Traversal
-void Master::traverse(fs::path p, std::string tabs){
-	std::vector<fs::path> dirs;
+void SFM::traverse(FS::path dirPath, std::string tabs){
+	std::vector<FS::path> dirs;
 
-	std::cout << tabs << "directory: " << p.filename() << std::endl ;
+	std::cout << tabs << "directory: " << dirPath.filename() << std::endl ;
 	tabs = tabs + "\t";
-	for(auto& entry : fs::directory_iterator(p) )
+	for(auto& entry : FS::directory_iterator(dirPath) )
 	{
 		if(! entry.is_directory() )
 		{
@@ -27,4 +27,4 @@ void Master::traverse(fs::path p, std::string tabs){
 }
 
 // Destructor
-Master::~Master(){}
+SFM::~SFM(){}

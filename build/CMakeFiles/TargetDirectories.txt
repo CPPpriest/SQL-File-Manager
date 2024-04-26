@@ -1,0 +1,3 @@
+/home/priest/Desktop/github repositories/SQL-File-Manager/build/CMakeFiles/SQL-File-Manager.dir
+/home/priest/Desktop/github repositories/SQL-File-Manager/build/CMakeFiles/edit_cache.dir
+/home/priest/Desktop/github repositories/SQL-File-Manager/build/CMakeFiles/rebuild_cache.dir

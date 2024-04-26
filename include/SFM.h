@@ -2,33 +2,21 @@
 #define SFM_HEADER_FILE
 
 #include <iostream>
+#include <filesystem>
 #include <string>
+#include <vector>
 
-#define MACINTOSH 1984
+namespace FS = std::filesystem;
 
-
-/*
-// Enumeration for Query types
-enum QType {
-  INSERT,
-  DELETE,
-  SELECT
-
-};
-
-// Query class definition
-class Query {
-
+class SFM{
   private:
-    std::string queryBody;  // Complete Query
+      FS::path pathStr;
 
   public:
-
-
-
-
+      SFM(std::string pathString);
+      void traverse(FS::path dirPath, std::string tabs);
+      ~SFM();
 };
-*/
 
 
 #endif
