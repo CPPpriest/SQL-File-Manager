@@ -1,18 +1,22 @@
 #include <mysql_driver.h>
 #include <mysql_connection.h>
 
+#include <cppconn/prepared_statement.h>
+#include <cppconn/exception.h>
+
 #include "SFM.h"
 
-
-#define CONNECT_STR "tcp://localhost:3306", "priest","2011"
+#define DB_HOST "tcp://localhost:3306"
+#define DB_USER "priest"
+#define DB_PASS "2011"
 #define SCHEMA_STR "foldersDB"
-
 
 int main() {
 
     sql::mysql::MySQL_Driver *driver;
     sql::Connection *con;
 
+    std::string pathSTR = "";
     std::cout << "Path to directory:";
     std::cin >> pathSTR;
 
@@ -21,29 +25,33 @@ int main() {
         driver = sql::mysql::get_mysql_driver_instance();
 
         // Establish a MySQL connection
-        con = driver->connect( CONNECT_STR );
+        con = driver->connect(DB_HOST, DB_USER, DB_PASS);
 
         // Select a database
         con->setSchema( SCHEMA_STR );
 
-//---------Execute SQL queries and process results here-----------------------//
+
+//----------Modify DB---------------------------//
+        std::string insertQuery = "INSERT INTO paths (path) VALUES (?)";
+        sql::PreparedStatement* prep_stmt = con->prepareStatement(insertQuery);
+
+        //---------Traversal----------------------//
+                std::string pathString = pathSTR;
+                SFM m1(pathString);
+                m1.traverse(pathString, prep_stmt);
+        //----------------------------------------------------------------------------//
+
+        //prep_stmt->setString(1, "Hello World");  // Example data
+
+        //prep_stmt->executeUpdate();
+
+        // delete statement
 
 
-        std::string pathString = pathSTR;
-        SFM m1(pathString);
-
-        std::string tabs = "";
-        m1.traverse(pathString,tabs);
-
-        // Create Query object for the instance
-
-        // Call evaluator process
-
-        // Delete Query object
+//----------------------------------------------//
 
 
 
-//----------------------------------------------------------------------------//
 
         // Close the connection
         delete con;
