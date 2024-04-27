@@ -85,3 +85,6 @@ USE foldersDB;
 
 ## Future Improvements
 In future versions, the application will feature a graphical user interface (GUI) for managing database connections and queries, thereby simplifying the user experience and enhancing accessibility.
+Application will be adapted for cross-platform Compatibility.
+More sophisticated database design.
+Direct directory content manipulation/update over mySQL terminal.
