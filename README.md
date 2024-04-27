@@ -1,39 +1,87 @@
-# Dependencies:
-	- lmysqlcppconn -mySQL connector
-	- build_essentials
-	- cmake
 
-# Setup
-1. Modify CMakeLists.txt  
-Add mysqlcppconn path to "# Include directories" part
+# SQL File Manager
 
-2. build:  
-*SQL-File-Manager$* **cd build**    
-*SQL-File-Manager/build$* **cmake ..**  
-*SQL-File-Manager/build$* **make**
+## Purpose of the Project
+The SQL File Manager is a tool designed to traverse a specified directory recursively and insert all file paths into a MySQL database. This utility is intended to help in managing and indexing file systems.
 
-3. start mySQL server  
-*$* **sudo systemctl start mysql**  
-*$* **sudo systemctl status mysql**
+## Getting Started
 
-4. run  
-*SQL-File-Manager/build$* **./SQL-File-Manager**  
-*Path to directory:* **/home/priest/Desktop/dummyFolder**
+### Prerequisites
+Before you start, ensure you have the following installed on your system:
+- MySQL Connector/C++
+- CMake (version 3.10 or higher recommended)
+- GNU build essentials for compiling C++ code
 
-5. stop mySQL server  
-*$* **sudo systemctl stop mysql**
+### Database Setup
+1. **MySQL Installation**: Make sure MySQL is installed and running on your system.
+2. **Database Creation**: Create a MySQL database named `foldersDB`.
+3. **Table Creation**:
+   - Connect to your MySQL server: `sudo mysql -u root -p`
+   - Run the following SQL commands:
+     ```sql
+     CREATE DATABASE IF NOT EXISTS foldersDB;
+     USE foldersDB;
+     CREATE TABLE paths (
+         path VARCHAR(255) NOT NULL
+     );
+     ```
 
-# Properties of Final Version
-- mySQL server and all modifications on code are removed and accessed via GUI. (Blackboxed)
-- From the point the program is run, all files in the provided directory are available on mySQL server.
+### Configuration
+1. **Include Directory**: Update the `include_directories` in `CMakeLists.txt` to reflect the correct path to `cppconn`:
+   ```cmake
+   include_directories(include /path/to/cppconn)
+   ```
+2. **Database Connection**: Modify the database connection details in `main.cpp` to match your MySQL setup:
+   ```cpp
+   #define DB_HOST "tcp://localhost:3306"
+   #define DB_USER "yourUsername"
+   #define DB_PASS "yourPassword"
+   ```
 
-# How it suppose to work on the first version:
-- User sets up the program and runs
-- On the terminal, enters the user and password information
-- On the terminal, specifies the path to directory
-- All the files in the directory are available on mySQL Database
+### Building the Project
+1. Navigate to your project directory:
+   ```bash
+   cd SQL-File-Manager
+   ```
+2. Create and move into the build directory:
+   ```bash
+   mkdir build && cd build
+   ```
+3. Generate the Makefile using CMake and compile the project:
+   ```bash
+   cmake ..
+   make
+   ```
 
-# Database  
-*$* **sudo mysql -u root -p**  
-*mysql>* **SHOW DATABASES;**  
-*mysql>* **USE foldersDB;**
+## Running the Program
+1. **Start the MySQL Server**:
+   ```bash
+   sudo systemctl start mysql
+   ```
+2. **Execute the Program**:
+   ```bash
+   ./SQL-File-Manager
+   ```
+   When prompted, enter the path to the directory you wish to index.
+
+3. **Stop the MySQL Server** (if no longer needed):
+   ```bash
+   sudo systemctl stop mysql
+   ```
+
+## Dependencies
+This project relies on the following libraries and tools:
+- `lmysqlcppconn` for MySQL connectivity
+- CMake for managing the build process
+- Build essentials for compiling the project
+
+## Understanding the Database
+To view and manage the database, use the following commands:
+```bash
+sudo mysql -u root -p
+SHOW DATABASES;
+USE foldersDB;
+```
+
+## Future Improvements
+In future versions, the application will feature a graphical user interface (GUI) for managing database connections and queries, thereby simplifying the user experience and enhancing accessibility.
